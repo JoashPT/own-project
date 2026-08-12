@@ -38,13 +38,11 @@ function checkAnswer() {
     Object.entries(userAnswers).forEach((key) => {
         userAnswerList.push(Number.parseInt(key[1].value));
     })
-    console.log(userAnswerList);
-    for (let i = 0; i < answerList; i++){
-        console.log(userAnswers[i]);
+    for (let i = 0; i < answerList.length; i++){
         if (userAnswerList[i] == answerList[i]) {
-            userAnswers[i].style.backgroundColor = "green";
+            userAnswers[i].parentElement.style.backgroundColor = "green";
         } else {
-            userAnswers[i].style.backgroundColor = "red";
+            userAnswers[i].parentElement.style.backgroundColor = "red";
         }
     }
 }
