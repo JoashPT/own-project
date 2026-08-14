@@ -2,7 +2,8 @@ const answerList = [];
 const userAnswerList = [];
 
 function createCard() {
-    for (let i = 0; i < 10; i++) {
+    const numberOfItems = Number.parseInt(document.getElementById("numberOfItems").value);
+    for (let i = 0; i < numberOfItems; i++) {
         const firstNumber = Math.floor(Math.random() * 10);
         const secondNumber = Math.floor(Math.random() * 10);
         const sum = firstNumber + secondNumber;
