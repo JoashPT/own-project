@@ -1,20 +1,33 @@
 const answerList = [];
 const userAnswerList = [];
+const operations = {
+    Addition: (a, b) => a + b,
+    Subtraction: (a, b) => a - b,
+    Multiplication: (a, b) => a * b,
+    Division: (a, b) => Number((a / b).toFixed(2))
+}
+const operationSign = {
+    Addition: "+",
+    Subtraction: "-",
+    Multiplication: "x",
+    Division: "÷",
+}
 
 function createCard() {
     const numberOfItems = Number.parseInt(document.getElementById("numberOfItems").value);
+    const operationToBeUsed = document.getElementById("operationToBeUsed").value;
     for (let i = 0; i < numberOfItems; i++) {
         const firstNumber = Math.floor(Math.random() * 10);
         const secondNumber = Math.floor(Math.random() * 10);
-        const sum = firstNumber + secondNumber;
-        answerList.push(sum);
+        const answer = operations[operationToBeUsed](firstNumber, secondNumber);
+        answerList.push(answer);
 
         const numberCard = document.createElement("div");
         const firstNumberText = document.createElement("p");
         firstNumberText.textContent = firstNumber;
 
         const operation = document.createElement("p");
-        operation.textContent = "+";
+        operation.textContent = operationSign[operationToBeUsed];
 
         const secondNumberText = document.createElement("p");
         secondNumberText.textContent = secondNumber;
