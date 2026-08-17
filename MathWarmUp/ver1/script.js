@@ -13,12 +13,22 @@ const operationSign = {
     Division: "÷",
 }
 
+const levelUsed = {
+    levelOne: "1",
+    levelTwo: 2,
+    levelThree: 3,
+    levelFour: 4,
+    levelFive: 5
+}
+
 function createCard() {
     const numberOfItems = Number.parseInt(document.getElementById("numberOfItems").value);
     const operationToBeUsed = document.getElementById("operationToBeUsed").value;
+    const levelToBeUsed = document.getElementById("levelToBeUsed").value;
+    console.log(levelUsed[levelToBeUsed]);
     for (let i = 0; i < numberOfItems; i++) {
-        const firstNumber = Math.floor(Math.random() * 10);
-        const secondNumber = Math.floor(Math.random() * 10);
+        const firstNumber = Math.floor(Math.random() * Math.pow(10, levelUsed[levelToBeUsed]));
+        const secondNumber = Math.floor(Math.random() * Math.pow(10, levelUsed[levelToBeUsed]));
         const answer = operations[operationToBeUsed](firstNumber, secondNumber);
         answerList.push(answer);
 
