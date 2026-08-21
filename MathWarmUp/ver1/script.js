@@ -14,21 +14,55 @@ const operationSign = {
 }
 
 const levelUsed = {
-    levelOne: "1",
+    levelOne: 1,
     levelTwo: 2,
     levelThree: 3,
     levelFour: 4,
     levelFive: 5
 }
 
+const additionLevel = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5]]
+const subtractionLevel = [[1, 1], [2, 1], [2, 2], [3, 2], [3, 3]]
+const multiplicationLevel = [[1, 1], [2, 1], [3, 1], [2, 2], [3, 2]]
+const divisionLevel = [[1, 1], [2, 1], [3, 1], [3, 2], [4, 2]]
+
 function createCard() {
     const numberOfItems = Number.parseInt(document.getElementById("numberOfItems").value);
     const operationToBeUsed = document.getElementById("operationToBeUsed").value;
     const levelToBeUsed = document.getElementById("levelToBeUsed").value;
-    console.log(levelUsed[levelToBeUsed]);
+    const operationLevel = (operationToBeUsed == "Addition") ? additionLevel :
+                            (operationToBeUsed == "Subtraction") ? subtractionLevel :
+                            (operationToBeUsed == "Multiplication") ? multiplicationLevel :
+                            (operationToBeUsed == "Division") ? divisionLevel :
+                            "unidentified operation";
+
     for (let i = 0; i < numberOfItems; i++) {
-        const firstNumber = Math.floor(Math.random() * Math.pow(10, levelUsed[levelToBeUsed]));
-        const secondNumber = Math.floor(Math.random() * Math.pow(10, levelUsed[levelToBeUsed]));
+        const firstNumberString = [];
+        const secondNumberString = [];
+        const numberLength = operationLevel[levelUsed[levelToBeUsed] - 1];
+        for (let j = 0; j < numberLength[0]; j++) {
+            const digitForFirstNumber = Math.floor(Math.random() * 10);
+            console.log(digitForFirstNumber);
+            if (numberLength > 1 && firstNumberString.length == 0 && digitForFirstNumber == 0) {
+                j--;
+                continue;
+            } else {
+                firstNumberString.push(digitForFirstNumber);
+            }
+        }
+
+        for (let k = 0; k < numberLength[1]; k++) {
+            const digitForSecondNumber = Math.floor(Math.random() * 10);
+            console.log(digitForSecondNumber);
+            if (numberLength > 1 && secondNumberString.length == 0 && digitForSecondNumber == 0) {
+                k--;
+                continue;
+            } else {
+                secondNumberString.push(digitForSecondNumber);
+            }
+        }
+        const firstNumber = Number.parseInt(firstNumberString.join(""));
+        const secondNumber = Number.parseInt(secondNumberString.join(""));
         const answer = operations[operationToBeUsed](firstNumber, secondNumber);
         answerList.push(answer);
 
