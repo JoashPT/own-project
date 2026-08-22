@@ -27,6 +27,10 @@ const multiplicationLevel = [[1, 1], [2, 1], [3, 1], [2, 2], [3, 2]]
 const divisionLevel = [[1, 1], [2, 1], [3, 1], [3, 2], [4, 2]]
 
 function createCard() {
+    answerList.length = 0;
+    userAnswerList.length = 0;
+    document.getElementById("activityArea").replaceChildren();
+
     const numberOfItems = Number.parseInt(document.getElementById("numberOfItems").value);
     const operationToBeUsed = document.getElementById("operationToBeUsed").value;
     const levelToBeUsed = document.getElementById("levelToBeUsed").value;
@@ -40,27 +44,10 @@ function createCard() {
         const firstNumberString = [];
         const secondNumberString = [];
         const numberLength = operationLevel[levelUsed[levelToBeUsed] - 1];
-        for (let j = 0; j < numberLength[0]; j++) {
-            const digitForFirstNumber = Math.floor(Math.random() * 10);
-            console.log(digitForFirstNumber);
-            if (numberLength > 1 && firstNumberString.length == 0 && digitForFirstNumber == 0) {
-                j--;
-                continue;
-            } else {
-                firstNumberString.push(digitForFirstNumber);
-            }
-        }
 
-        for (let k = 0; k < numberLength[1]; k++) {
-            const digitForSecondNumber = Math.floor(Math.random() * 10);
-            console.log(digitForSecondNumber);
-            if (numberLength > 1 && secondNumberString.length == 0 && digitForSecondNumber == 0) {
-                k--;
-                continue;
-            } else {
-                secondNumberString.push(digitForSecondNumber);
-            }
-        }
+        createNumber(numberLength[0], firstNumberString);
+        createNumber(numberLength[1], secondNumberString);
+        
         const firstNumber = Number.parseInt(firstNumberString.join(""));
         const secondNumber = Number.parseInt(secondNumberString.join(""));
         const answer = operations[operationToBeUsed](firstNumber, secondNumber);
@@ -103,6 +90,18 @@ function checkAnswer() {
             userAnswers[i].parentElement.style.backgroundColor = "red";
         }
     }
+}
+
+function createNumber(lengthOfNumber, numberArray) {
+    for (let i = 0; i < lengthOfNumber; i++) {
+            const digit = Math.floor(Math.random() * 10);
+            if (lengthOfNumber > 1 && numberArray.length == 0 && digit == 0) {
+                i--;
+                continue;
+            } else {
+                numberArray.push(digit);
+            }
+        }
 }
 
 const generateCard = document.getElementById("generateCard");
